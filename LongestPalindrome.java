@@ -29,9 +29,35 @@ public class LongestPalindrome {
         return longest;
     }
 
+    public String longestPalindrome2(String s) {
+        String longest = "";
+        int maxLength = 0;
+        char[] charS = s.toCharArray();
+        for (int i = 0; i < s.length(); i++) {
+            int right = i + 1;
+            while (right < s.length() && charS[right] == charS[i]) {
+                right++;
+            }
+
+            int left = i - 1;
+            while (left >= 0 && right < s.length() && charS[right] == charS[left]) {
+                left--;
+                right++;
+            }
+            // tại đây thì left đã dịch sang trái và right đã dịch sang phải 1 đơn vị nên cần -2 đi
+            if ((right - 1) - (left + 1) + 1 > maxLength) {
+                // lấy left + 1 vì left + 1 là giá trị đúng, còn lấy đến right là vì substring trong java không lấy right, chỉ lấy < right (tương đương right - 1)
+                longest = s.substring(left + 1, right);
+                maxLength = right - (left + 1);
+            }
+        }
+
+        return longest;
+    }
+
     public static void main(String[] args) {
         LongestPalindrome lp = new LongestPalindrome();
-        String s = "cbbd";
-        System.out.println(lp.longestPalindrome(s));
+        String s = "bb";
+        System.out.println(lp.longestPalindrome2(s));
     }
 }
