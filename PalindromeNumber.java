@@ -1,7 +1,19 @@
 public class PalindromeNumber {
     public boolean isPalindrome(int x) {
         if (x < 0) return false;
-        int reverse = reverse(x);
+        int reverse = 0;
+        int temp = x;
+        while (temp > 0) {
+            int lastDigit = temp % 10;
+            if (reverse != 0) {
+                if (reverse >= 214748365) return false; // trường hợp vượt quá khoảng giới hạn của số int
+                reverse = reverse * 10 + lastDigit;
+            } else {
+                reverse += lastDigit;
+            }
+
+            temp /= 10;
+        }
         return x == reverse;
     }
 
@@ -13,28 +25,5 @@ public class PalindromeNumber {
             if (sNum.charAt(i) != sNum.charAt((length - 1) - i)) return false;
         }
         return true;
-    }
-
-    public int reverse(int x) {
-        boolean isNegative = false;
-        int result = 0;
-        if (x < 0) {
-            isNegative = true;
-            x = -x;
-        }
-
-        while (x > 0) {
-            int lastDigit = x % 10;
-            if (result != 0) {
-                if (result >= 214748365) return 0; // trường hợp vượt quá khoảng giới hạn của số int
-                result = result * 10 + lastDigit;
-            } else {
-                result += lastDigit;
-            }
-
-            x /= 10;
-        }
-
-        return isNegative ? -result : result;
     }
 }
