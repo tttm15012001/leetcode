@@ -21,9 +21,21 @@ public class FibonacciNumber {
         return dp[n];
     }
 
+    public int fib3(int n, int[] mem) {
+        if (n == 0) return 0;
+        else if (n == 1) return 1;
+        else if (mem[n] != 0) return mem[n];
+
+        mem[n] = fib3(n - 1, mem) + fib3(n - 2, mem);
+        return mem[n];
+    }
+
     public static void main(String[] args) {
         FibonacciNumber fib = new FibonacciNumber();
 
-        System.out.println(fib.fib(4));
+        int n = 5;
+        int[] mem = new int[n + 1];
+        mem[1] = 1;
+        System.out.println(fib.fib3(5, mem));
     }
 }
